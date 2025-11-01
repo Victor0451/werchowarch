@@ -60,10 +60,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     // Crear y firmar el token
     const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: "8h" });
 
+    // La cookie será segura si la URL de la app empieza con https
+    const isSecure = process.env.NEXT_PUBLIC_APP_URL?.startsWith("https://");
+
     // --- Guardar el token en una cookie httpOnly ---
     (await cookies()).set("werchow-token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: isSecure,
       sameSite: "strict",
       maxAge: 60 * 60 * 8, // 8 horas
       path: "/",
