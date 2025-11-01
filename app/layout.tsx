@@ -20,14 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="h-full bg-gray-100">
-      <body className={`${inter.variable} h-full font-sans`}>
-        <div className="flex h-full">
-          <Sidebar />
-          <main className="flex-1 p-6 md:p-10 overflow-y-auto">
-            {children}
-          </main>
-        </div>
-      </body>
+      <body className={`${inter.variable} h-full font-sans`}>{children}</body>
     </html>
   );
 }

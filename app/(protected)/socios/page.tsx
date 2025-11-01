@@ -10,7 +10,7 @@ import {
   X,
   Info,
 } from "lucide-react";
-import { Socio } from "../types/socios";
+import { Socio } from "../../types/socios";
 import { FichaSocio } from "@/components/FichaSocio";
 
 // Datos de ejemplo para las empresas. Esto podría venir de una API.
@@ -240,7 +240,7 @@ export default function SociosPage() {
             </button>
           </div>
           {/* Mostramos la ficha del primer socio encontrado */}
-          <FichaSocio socio={searchResults as Socio} />
+          <FichaSocio socio={searchResults as Socio} empresa={empresa} />
         </div>
       )}
 

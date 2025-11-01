@@ -18,6 +18,7 @@ import { ListaArchivos } from "./ListaArchivos";
 
 interface FichaSocioProps {
   socio: Socio;
+  empresa: string;
 }
 
 const InputSoloLectura = ({
@@ -35,7 +36,7 @@ const InputSoloLectura = ({
   </div>
 );
 
-export function FichaSocio({ socio }: FichaSocioProps) {
+export function FichaSocio({ socio, empresa }: FichaSocioProps) {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [deleteResponse, setDeleteResponse] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -145,6 +146,11 @@ export function FichaSocio({ socio }: FichaSocioProps) {
 
         const formData = new FormData();
         formData.append("file", fileToUpload, file.name); // Usar el nombre original
+        // Añadimos los datos adicionales para el registro en la BD
+        formData.append("dni", socio.NRO_DOC);
+        formData.append("socio", `${socio.APELLIDOS}, ${socio.NOMBRES}`);
+        formData.append("contrato", socio.CONTRATO); 
+        formData.append("empresa", empresa);
 
         const response = await fetch(`/api/socios/${socio.CONTRATO}/uploads`, {
           method: "POST",
